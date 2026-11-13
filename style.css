@@ -822,6 +822,23 @@ details.cred-box .cred {
   margin: 0;
 }
 
+/* กล่องวิธีติดตั้งและอัปเดต (แท็บประวัติ) */
+.install-body { padding: 14px 18px 18px; }
+.install-tip {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border: 1.5px dashed var(--cobalt);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .6);
+  font-size: .9rem;
+}
+.install-os { padding-top: 12px; border-top: 1px dashed var(--pastel); }
+.install-os:first-child { border-top: 0; padding-top: 0; }
+.install-os h4 { margin: 0 0 6px; color: var(--cobalt); font-size: 1rem; }
+.install-os ol { margin: 0 0 8px; padding-left: 1.3em; font-size: .95rem; }
+.install-os li { margin: 3px 0; }
+.install-os .note { margin: 0 0 12px; font-size: .85rem; }
+
 /* =========================================================
    [FIX #3] กล่องตั้งค่าการแจ้งเตือน & แถบเตือนในแอป
    ========================================================= */

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tungprawaja-v3';
+const CACHE_NAME = 'tungprawaja-v4';
 const ASSETS = [
   './',
   './index.html',

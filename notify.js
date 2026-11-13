@@ -335,6 +335,37 @@
     navigator.serviceWorker.register('./sw.js').catch(() => {});
   }
 
+  // กล่อง "วิธีติดตั้งและอัปเดต": เรียงวิธีของเครื่องที่ใช้อยู่ขึ้นก่อน
+  // และเปิดกล่องพร้อมคำแนะนำอัตโนมัติถ้าเป็น iPhone/iPad ที่ยังไม่ได้ติดตั้ง
+  function setupInstallCard() {
+    const box = document.getElementById('cardInstall');
+    const list = document.getElementById('installList');
+    const tip = document.getElementById('installTip');
+    if (!box || !list) return;
+
+    const ios = isIOS() || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const android = /Android/i.test(navigator.userAgent || '');
+    const first = ios ? 'ios' : android ? 'android' : 'desktop';
+    const sec = list.querySelector(`[data-os="${first}"]`);
+    if (sec) list.prepend(sec);
+
+    if (!tip) return;
+    let msg = '';
+    if (isStandalone()) {
+      msg = '✓ ติดตั้งเป็นแอปแล้ว ดูวิธีอัปเดตได้ที่ด้านล่าง';
+    } else if (isInAppBrowser()) {
+      msg = 'กำลังเปิดในแอปอื่น (เช่น LINE / Instagram) ให้กด ⋯ แล้วเลือก "เปิดใน Safari / Chrome" ก่อนติดตั้ง';
+    } else if (ios) {
+      msg = '📱 ยังไม่ได้ติดตั้งบน iPhone/iPad เครื่องนี้ ทำตามขั้นตอนด้านล่างเพื่อเพิ่มแอปไว้ที่หน้าจอโฮม';
+      box.open = true;
+    }
+    if (msg) {
+      tip.textContent = msg;
+      tip.hidden = false;
+    }
+  }
+
+  setupInstallCard();
   renderNotiCard();
   checkReminders();
   setInterval(checkReminders, 20000);
