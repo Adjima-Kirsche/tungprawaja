@@ -1,43 +1,52 @@
-const CACHE_NAME = 'tungprawaja-v1';
-const ASSETS_TO_CACHE = [
-  '/tungprawaja/',
-  '/tungprawaja/index.html',
-  '/tungprawaja/manifest.json',
-  '/tungprawaja/icon-192.png',
-  '/tungprawaja/icon-512.png'
+const CACHE_NAME = 'tungprawaja-v2';
+const ASSETS = [
+  './',
+  './index.html',
+  './style.css',
+  './notify.js',
+  './manifest.json',
+  './icon-192.png'
 ];
 
-// ติดตั้ง Service Worker และเก็บไฟล์ลงแคช
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
-    })
-  );
   self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)).catch(() => {})
+  );
 });
 
-// ล้างแคชเก่าเมื่อมีการอัปเดตเวอร์ชัน
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
-          }
-        })
-      );
-    })
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
+    ).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
-// ดึงข้อมูลจากแคชมาแสดงก่อน (ช่วยให้เปิดไวและใช้ออฟไลน์ได้)
 self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request);
+    fetch(event.request)
+      .then((res) => {
+        const copy = res.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy)).catch(() => {});
+        return res;
+      })
+      .catch(() => caches.match(event.request))
+  );
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const scopeUrl = self.registration.scope || './';
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
+      for (const client of list) {
+        if (client.url.startsWith(scopeUrl) && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      if (clients.openWindow) return clients.openWindow(scopeUrl);
     })
   );
 });
