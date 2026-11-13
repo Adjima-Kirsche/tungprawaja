@@ -2,24 +2,25 @@
   "name": "ทุ่งพระวาจา - Tung Prawaja",
   "short_name": "ทุ่งพระวาจา",
   "description": "แอปพลิเคชันสำหรับคริสตชน อ่านพระคัมภีร์ 73 เล่มใน 1 ปี บันทึกมิสซา ภาวนา และนับลูกประคำ",
-  "start_url": "/tungprawaja/index.html",
-  "scope": "/tungprawaja/",
+  "id": "./",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#2c5e3b",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/tungprawaja/icon-192.png",
+      "src": "./icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "/tungprawaja/icon-512.png",
+      "src": "./icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }

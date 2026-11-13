@@ -1,11 +1,12 @@
-const CACHE_NAME = 'tungprawaja-v2';
+const CACHE_NAME = 'tungprawaja-v3';
 const ASSETS = [
   './',
   './index.html',
   './style.css',
   './notify.js',
   './manifest.json',
-  './icon-192.png'
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
