@@ -1,6 +1,6 @@
 // ทุ่งพระวาจา service worker — เปลี่ยนเลข VERSION ทุกครั้งที่อัปเดต index.html
-const VERSION = "tungprawaja-v4";
-const FILES = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png", "./icon-maskable-512.png", "./icon-180.png"];
+const VERSION = "tungprawaja-v5";
+const FILES = ["./", "./index.html", "./style.css", "./notify.js", "./manifest.json", "./icon-192.png", "./icon-512.png", "./icon-maskable-512.png", "./icon-180.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(VERSION).then(c => c.addAll(FILES))); self.skipWaiting(); });
 self.addEventListener("activate", e => {
   e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== VERSION).map(k => caches.delete(k)))).then(() => self.clients.claim()));

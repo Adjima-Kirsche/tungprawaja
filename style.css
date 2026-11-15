@@ -97,7 +97,7 @@ h3 { font-size: 1.15rem; line-height: 1.45; }
   box-shadow: 3px 4px 0 rgba(31, 79, 191, .25);
   transform: rotate(-4deg);
 }
-.logo svg { display: block; width: 100%; height: 100%; }
+.logo svg, .logo img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .brand-t {
   display: flex;
   flex-direction: column;
@@ -1017,3 +1017,6 @@ details.cred-box .cred {
   .sheet-body, .cel-card, .marquee div { animation: none; }
   .frame, .bar i { transition: none; }
 }
+
+/* ป้ายหมวดข้อพระวาจาประจำวัน (ฮีลใจ · หนุนใจ · เตือนใจ · เข้าใจ) */
+.badge.vtheme { background: var(--cobalt); color: var(--butter); border-color: var(--cobalt); }
